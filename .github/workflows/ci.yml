@@ -58,8 +58,8 @@ jobs:
       - name: Set compilers for Windows (OpenFHE requires __int128, MSVC unsupported)
         if: runner.os == 'Windows'
         run: |
-          echo "CC=clang" >> $env:GITHUB_ENV
-          echo "CXX=clang++" >> $env:GITHUB_ENV
+          echo "CC=clang-cl" >> $env:GITHUB_ENV
+          echo "CXX=clang-cl" >> $env:GITHUB_ENV
 
       - name: Sync (builds veil_backend; hermetic OpenFHE via FetchContent)
         run: uv sync --frozen
