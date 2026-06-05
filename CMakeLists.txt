@@ -20,10 +20,17 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     set(CMAKE_BUILD_TYPE Release CACHE STRING "" FORCE)
 endif()
 
+if(APPLE AND CMAKE_OSX_SYSROOT)
+    # Force macOS sysroot into compile_commands.json so Neovim's clangd finds standard library headers
+    add_compile_options(-isysroot ${CMAKE_OSX_SYSROOT})
+endif()
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Automatically copy compile_commands.json to the root directory for Neovim / clangd
-if(CMAKE_EXPORT_COMPILE_COMMANDS)
+# We exclude SKBUILD so that `uv sync`'s ephemeral isolated build paths don't overwrite
+# a good persistent compile_commands.json.
+if(CMAKE_EXPORT_COMPILE_COMMANDS AND NOT SKBUILD)
     add_custom_target(
         sync_compile_commands ALL
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
