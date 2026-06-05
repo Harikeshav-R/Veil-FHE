@@ -26,7 +26,7 @@ jobs:
         env:
           CIBW_BUILD: "cp312-*"
           CIBW_BUILD_FRONTEND: "build[uv]"
-          CIBW_ENVIRONMENT_WINDOWS: "CC=clang-cl CXX=clang-cl"
+          CIBW_ENVIRONMENT_WINDOWS: "CMAKE_ARGS='-T ClangCL'"
       - uses: actions/upload-artifact@v4
         with:
           name: wheels-${{ matrix.os }}
