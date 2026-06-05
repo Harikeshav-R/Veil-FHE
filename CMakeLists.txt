@@ -27,7 +27,17 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindOrFetchOpenFHE.cmake)
 
 # pybind11 is provided by scikit-build-core's build environment; fall back to
 # find_package for standalone CMake builds.
-find_package(pybind11 CONFIG REQUIRED)
+find_package(pybind11 CONFIG)
+if(NOT pybind11_FOUND)
+    message(STATUS "[veil] pybind11 not found via find_package, fetching via FetchContent")
+    include(FetchContent)
+    FetchContent_Declare(
+        pybind11
+        GIT_REPOSITORY https://github.com/pybind/pybind11.git
+        GIT_TAG v3.0.4
+    )
+    FetchContent_MakeAvailable(pybind11)
+endif()
 
 # --------------------------------------------------------------------------
 # The extension module

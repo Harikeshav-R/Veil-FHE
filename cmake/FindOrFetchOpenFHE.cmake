@@ -50,12 +50,9 @@ else()
         GIT_REPOSITORY https://github.com/openfheorg/openfhe-development.git
         GIT_TAG        ${VEIL_OPENFHE_TAG}
         GIT_SHALLOW    TRUE
+        EXCLUDE_FROM_ALL
     )
-    FetchContent_GetProperties(OpenFHE)
-    if(NOT openfhe_POPULATED)
-        FetchContent_Populate(OpenFHE)
-        add_subdirectory(${openfhe_SOURCE_DIR} ${openfhe_BINARY_DIR} EXCLUDE_FROM_ALL)
-    endif()
+    FetchContent_MakeAvailable(OpenFHE)
 
     set(VEIL_OPENFHE_INCLUDE_DIRS
         ${openfhe_SOURCE_DIR}/src/core/include
