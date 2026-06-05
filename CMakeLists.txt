@@ -27,18 +27,7 @@ endif()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Automatically copy compile_commands.json to the root directory for Neovim / clangd
-# We exclude SKBUILD so that `uv sync`'s ephemeral isolated build paths don't overwrite
-# a good persistent compile_commands.json.
-if(CMAKE_EXPORT_COMPILE_COMMANDS AND NOT SKBUILD)
-    add_custom_target(
-        sync_compile_commands ALL
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${CMAKE_BINARY_DIR}/compile_commands.json"
-            "${CMAKE_SOURCE_DIR}/compile_commands.json"
-        COMMENT "Syncing compile_commands.json to project root for clangd"
-    )
-endif()
+
 
 # --------------------------------------------------------------------------
 # Dependencies
@@ -74,6 +63,19 @@ if(APPLE)
     elseif(EXISTS "/usr/local/opt/libomp/lib")
         target_link_directories(veil_backend PRIVATE "/usr/local/opt/libomp/lib")
     endif()
+endif()
+
+# Automatically copy compile_commands.json to the root directory for Neovim / clangd
+# We exclude SKBUILD so that `uv sync`'s ephemeral isolated build paths don't overwrite
+# a good persistent compile_commands.json.
+if(CMAKE_EXPORT_COMPILE_COMMANDS AND NOT SKBUILD)
+    add_custom_command(
+        TARGET veil_backend POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${CMAKE_BINARY_DIR}/compile_commands.json"
+            "${CMAKE_SOURCE_DIR}/compile_commands.json"
+        COMMENT "Syncing compile_commands.json to project root for clangd"
+    )
 endif()
 
 # scikit-build-core installs the module into the veil package directory.
