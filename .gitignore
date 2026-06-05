@@ -1,0 +1,53 @@
+# Build trees
+/build/
+/_skbuild/
+/dist/
+/wheelhouse/
+*.so
+*.pyd
+*.dylib
+*.o
+*.a
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+
+# OpenFHE FetchContent / external sources
+/_deps/
+/external/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.venv/
+venv/
+.python-version
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# Crypto material — NEVER commit keys or ciphertext artifacts
+*.key
+*.evk
+*.ctxt
+*.bin
+/keys/
+/artifacts/
+
+# Benchmark output blobs (commit the report, not raw dumps)
+/benchmarks/output/
+/benchmarks/*.npz
+
+# Docs site build
+/site/
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
+*.swp
