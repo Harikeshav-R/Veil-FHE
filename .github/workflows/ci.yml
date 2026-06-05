@@ -35,9 +35,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
-    env:
-      # scikit-build-core honors CMAKE_ARGS; route OpenFHE's compile through ccache.
-      CMAKE_ARGS: "-DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache"
+    # CMAKE_ARGS is set per-OS below to avoid ccache on Windows VS generator
     steps:
       - uses: actions/checkout@v6
 
@@ -47,9 +45,14 @@ jobs:
           enable-cache: true
 
       - name: Set up ccache
+        if: runner.os != 'Windows'
         uses: hendrikmuhs/ccache-action@v1.2
         with:
           key: openfhe-${{ matrix.os }}
+
+      - name: Configure ccache for CMake (macOS/Ubuntu)
+        if: runner.os != 'Windows'
+        run: echo "CMAKE_ARGS=-DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache" >> $GITHUB_ENV
 
       - name: Install libomp for OpenFHE (macOS)
         if: runner.os == 'macOS'
@@ -57,8 +60,7 @@ jobs:
 
       - name: Set compilers for Windows (OpenFHE requires __int128, MSVC unsupported)
         if: runner.os == 'Windows'
-        run: |
-          echo "CMAKE_ARGS=$env:CMAKE_ARGS -T ClangCL" >> $env:GITHUB_ENV
+        run: echo "CMAKE_ARGS=-T ClangCL" >> $env:GITHUB_ENV
 
       - name: Sync (builds veil_backend; hermetic OpenFHE via FetchContent)
         run: uv sync --frozen
