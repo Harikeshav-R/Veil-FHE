@@ -22,6 +22,17 @@ endif()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# Automatically copy compile_commands.json to the root directory for Neovim / clangd
+if(CMAKE_EXPORT_COMPILE_COMMANDS)
+    add_custom_target(
+        sync_compile_commands ALL
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${CMAKE_BINARY_DIR}/compile_commands.json"
+            "${CMAKE_SOURCE_DIR}/compile_commands.json"
+        COMMENT "Syncing compile_commands.json to project root for clangd"
+    )
+endif()
+
 # --------------------------------------------------------------------------
 # Dependencies
 # --------------------------------------------------------------------------
