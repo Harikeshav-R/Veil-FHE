@@ -51,6 +51,16 @@ jobs:
         with:
           key: openfhe-${{ matrix.os }}
 
+      - name: Install libomp for OpenFHE (macOS)
+        if: runner.os == 'macOS'
+        run: brew install libomp
+
+      - name: Set compilers for Windows (OpenFHE requires __int128, MSVC unsupported)
+        if: runner.os == 'Windows'
+        run: |
+          echo "CC=clang" >> $env:GITHUB_ENV
+          echo "CXX=clang++" >> $env:GITHUB_ENV
+
       - name: Sync (builds veil_backend; hermetic OpenFHE via FetchContent)
         run: uv sync --frozen
 
