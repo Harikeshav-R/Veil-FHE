@@ -85,6 +85,7 @@ cmake.build-type = "Release"
 VEIL_USE_SYSTEM_OPENFHE = "OFF"
 VEIL_WITH_HEXL = "OFF"
 VEIL_BUILD_CXX_TESTS = "OFF"
+CMAKE_EXPORT_COMPILE_COMMANDS = "ON"
 
 # ---------------------------------------------------------------------------
 # Ruff: linter + formatter.
