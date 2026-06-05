@@ -132,3 +132,10 @@ markers = [
 [tool.coverage.run]
 source = ["veil"]
 branch = true
+
+# ---------------------------------------------------------------------------
+# Pyrefly / Neovim LSP: automatically pick up the uv virtual environment.
+# ---------------------------------------------------------------------------
+[tool.pyrefly]
+venvPath = "."
+venv = ".venv"
