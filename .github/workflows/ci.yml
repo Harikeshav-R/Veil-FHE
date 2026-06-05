@@ -58,9 +58,15 @@ jobs:
         if: runner.os == 'macOS'
         run: brew install libomp
 
+      - name: Set up MSVC environment (Windows)
+        if: runner.os == 'Windows'
+        uses: ilammy/msvc-dev-cmd@v1
+
       - name: Set compilers for Windows (OpenFHE requires __int128, MSVC unsupported)
         if: runner.os == 'Windows'
-        run: echo "CMAKE_ARGS=-T ClangCL" >> $env:GITHUB_ENV
+        run: |
+          echo "CMAKE_ARGS=-DCMAKE_C_COMPILER=clang-cl -DCMAKE_CXX_COMPILER=clang-cl -DWITH_OPENMP=OFF" >> $env:GITHUB_ENV
+          echo "CMAKE_GENERATOR=Ninja" >> $env:GITHUB_ENV
 
       - name: Sync (builds veil_backend; hermetic OpenFHE via FetchContent)
         run: uv sync --frozen
