@@ -47,7 +47,7 @@ These apply to all implementation items below. A task is not done until:
 
 ## Progress at a glance
 
-- [ ] **Phase 0** — Repository & build bootstrap (Week 1)
+- [x] **Phase 0** — Repository & build bootstrap (Week 1)
 - [ ] **Phase 1** — FHE primitives / C++ backend (Weeks 2–3)
 - [ ] **Phase 2** — FHE operator library (Weeks 4–6)
 - [ ] **Phase 3** — ONNX ingestor (Weeks 6–7)
@@ -63,37 +63,37 @@ These apply to all implementation items below. A task is not done until:
 `veil_backend` compiles and imports, and CI is green on Linux.
 
 ### 0.1 Create and configure the GitHub repository
-- [ ] Create `Harikeshav-R/veil-fhe`; push the scaffold; set default branch `main`.
-- [ ] Add repo description and topics (`fhe`, `homomorphic-encryption`, `ckks`, `openfhe`, `privacy`, `ml-inference`).
-- [ ] Enable Issues; enable Discussions (optional).
-- [ ] Branch protection on `main`: require PR, require CI (`lint`, `build-test`) to pass, no direct pushes.
-- [ ] Confirm `LICENSE` (MIT), `SECURITY.md`, `CODE_OF_CONDUCT.md`, issue/PR templates render on GitHub.
-- [ ] → commit: `chore: initialize repository`
+- [x] Create `Harikeshav-R/veil-fhe`; push the scaffold; set default branch `main`.
+- [x] Add repo description and topics (`fhe`, `homomorphic-encryption`, `ckks`, `openfhe`, `privacy`, `ml-inference`).
+- [x] Enable Issues; enable Discussions (optional).
+- [x] Branch protection on `main`: require PR, require CI (`lint`, `build-test`) to pass, no direct pushes.
+- [x] Confirm `LICENSE` (MIT), `SECURITY.md`, `CODE_OF_CONDUCT.md`, issue/PR templates render on GitHub.
+- [x] → commit: `chore: initialize repository`
 
 ### 0.2 Local toolchain
-- [ ] Install `uv`, a C++17 compiler (GCC ≥ 9 or Clang ≥ 10), CMake ≥ 3.24, Ninja, and OpenFHE build prerequisites (OpenMP).
-- [ ] `uv sync` succeeds on Linux (builds the empty extension hermetically; slow first time).
-- [ ] `uv run python -c "import veil_backend"` works (stub module, OpenFHE not yet wired).
-- [ ] `uv run python -c "import veil"` imports the package surface without error.
-- [ ] `uv run pre-commit install`; `uv run pre-commit run --all-files` passes (incl. `uv-lock`).
+- [x] Install `uv`, a C++17 compiler (GCC ≥ 9 or Clang ≥ 10), CMake ≥ 3.24, Ninja, and OpenFHE build prerequisites (OpenMP).
+- [x] `uv sync` succeeds on Linux (builds the empty extension hermetically; slow first time).
+- [x] `uv run python -c "import veil_backend"` works (stub module, OpenFHE not yet wired).
+- [x] `uv run python -c "import veil"` imports the package surface without error.
+- [x] `uv run pre-commit install`; `uv run pre-commit run --all-files` passes (incl. `uv-lock`).
 
 ### 0.3 Wire OpenFHE into the build (configure-only this phase)
-- [ ] `cmake/FindOrFetchOpenFHE.cmake` fetches OpenFHE `v1.5.1` and configures without error.
-- [ ] Verify the in-tree target names / include dirs are correct for FetchContent consumption; fix if the first configure reports missing targets (see `DESIGN.md` §11.1 caveat).
-- [ ] Confirm `VEIL_USE_SYSTEM_OPENFHE=ON` path also configures against a local OpenFHE install.
-- [ ] → commit: `build: wire OpenFHE via FetchContent`
+- [x] `cmake/FindOrFetchOpenFHE.cmake` fetches OpenFHE `v1.5.1` and configures without error.
+- [x] Verify the in-tree target names / include dirs are correct for FetchContent consumption; fix if the first configure reports missing targets (see `DESIGN.md` §11.1 caveat).
+- [x] Confirm `VEIL_USE_SYSTEM_OPENFHE=ON` path also configures against a local OpenFHE install.
+- [x] → commit: `build: wire OpenFHE via FetchContent`
 
 ### 0.4 CI and docs
-- [ ] `lint` job green (ruff + mypy via `uv sync --no-install-project`).
-- [ ] `build-test` job green on **Linux** (ccache caching the OpenFHE build).
-- [ ] macOS / Windows jobs run (allowed to fail/lag this phase; capture the errors as issues).
-- [ ] Enable GitHub Pages; `docs.yml` deploys the MkDocs site successfully.
-- [ ] → commit: `ci: green pipeline on linux + docs deploy`
+- [x] `lint` job green (ruff + mypy via `uv sync --no-install-project`).
+- [x] `build-test` job green on **Linux** (ccache caching the OpenFHE build).
+- [x] macOS / Windows jobs run (allowed to fail/lag this phase; capture the errors as issues).
+- [x] Enable GitHub Pages; `docs.yml` deploys the MkDocs site successfully.
+- [x] → commit: `ci: green pipeline on linux + docs deploy`
 
 ### ✅ Phase 0 complete when
-- [ ] `uv sync` builds and `import veil_backend` works locally.
-- [ ] `lint` + `build-test` (Linux) green on CI; docs site live.
-- [ ] Branch protection active; pre-commit enforced.
+- [x] `uv sync` builds and `import veil_backend` works locally.
+- [x] `lint` + `build-test` (Linux) green on CI; docs site live.
+- [x] Branch protection active; pre-commit enforced.
 
 ---
 
