@@ -105,6 +105,7 @@ compile time with a clear error. Full table: [`docs/supported-ops.md`](docs/supp
 ## Documentation
 
 - [`DESIGN.md`](DESIGN.md) — the full design, architecture, and roadmap.
+- [`ROADMAP.md`](ROADMAP.md) — phase-by-phase build checklist to work through.
 - [`docs/`](docs/) — user guide, threat model, supported ops, benchmarks
   (rendered with MkDocs Material).
 - [`SECURITY.md`](SECURITY.md) — threat model summary and the "not audited" notice.

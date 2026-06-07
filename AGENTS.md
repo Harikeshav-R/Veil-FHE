@@ -180,10 +180,12 @@ flag it.
 
 ## 7. Following the roadmap
 
-Work the phases in `DESIGN.md` §14 in order. Do not begin a phase before the
-previous phase's **exit criteria** are green. If asked to do work that belongs to
-a deferred (post-v1) item — batching, encrypted weights, GPU, extra opsets — stop
-and confirm with the human; these are explicitly out of scope for v1.
+Work the phases in `DESIGN.md` §14 in order, tracking concrete progress against
+the checklist in **`ROADMAP.md`** — check items off there as you complete them.
+Do not begin a phase before the previous phase's **exit criteria** ("Phase
+complete when") are green. If asked to do work that belongs to a deferred
+(post-v1) item — batching, encrypted weights, GPU, extra opsets — stop and
+confirm with the human; these are explicitly out of scope for v1.
 
 When you complete a unit of work, your summary states: what test drove it, what
 you changed, the commands you ran and their result, and the level cost of any new
