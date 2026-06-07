@@ -12,6 +12,7 @@
 
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+
 #include <vector>
 
 // #include "openfhe.h"   // enable once OpenFHE is wired via CMake
@@ -25,7 +26,7 @@ namespace veil {
 // The secret key NEVER leaves this object toward Python in a usable form except
 // through explicit, clearly-named client-side methods.
 class Context {
-public:
+  public:
     // Build a CKKS CryptoContext from a parameter spec.
     //
     // Maps to OpenFHE:
@@ -39,7 +40,10 @@ public:
     //   cc_ = GenCryptoContext(p);
     //   cc_->Enable(PKE); Enable(KEYSWITCH); Enable(LEVELEDSHE); Enable(ADVANCEDSHE);
     Context(int mult_depth, int scaling_mod_size, int first_mod_size, int batch_size) {
-        (void)mult_depth; (void)scaling_mod_size; (void)first_mod_size; (void)batch_size;
+        (void)mult_depth;
+        (void)scaling_mod_size;
+        (void)first_mod_size;
+        (void)batch_size;
         // TODO(phase-1): construct the CryptoContext.
     }
 
@@ -77,13 +81,19 @@ std::vector<double> decrypt(Context& /*ctx*/, const Ciphertext& /*ct*/) {
 }
 
 // Ciphertext + ciphertext. Level cost: 0.
-Ciphertext eval_add(Context& /*ctx*/, const Ciphertext& /*a*/, const Ciphertext& /*b*/) { return {}; }
+Ciphertext eval_add(Context& /*ctx*/, const Ciphertext& /*a*/, const Ciphertext& /*b*/) {
+    return {};
+}
 
 // Ciphertext * ciphertext (with relinearization). Level cost: 1.
-Ciphertext eval_mult(Context& /*ctx*/, const Ciphertext& /*a*/, const Ciphertext& /*b*/) { return {}; }
+Ciphertext eval_mult(Context& /*ctx*/, const Ciphertext& /*a*/, const Ciphertext& /*b*/) {
+    return {};
+}
 
 // Cyclic slot rotation by `steps`. Requires a matching rotation key. Level cost: 0.
-Ciphertext eval_rotate(Context& /*ctx*/, const Ciphertext& /*a*/, int /*steps*/) { return {}; }
+Ciphertext eval_rotate(Context& /*ctx*/, const Ciphertext& /*a*/, int /*steps*/) {
+    return {};
+}
 
 // Evaluate a Chebyshev series (for polynomial activations) over [a, b].
 // Maps to OpenFHE EvalChebyshevSeries / EvalChebyshevFunction. Level cost:
@@ -94,7 +104,9 @@ Ciphertext eval_chebyshev(Context& /*ctx*/, const Ciphertext& /*x*/,
 }
 
 // Refresh the noise/level budget. Opt-in only; expensive (~seconds).
-Ciphertext bootstrap(Context& /*ctx*/, const Ciphertext& /*ct*/) { return {}; }
+Ciphertext bootstrap(Context& /*ctx*/, const Ciphertext& /*ct*/) {
+    return {};
+}
 
 }  // namespace veil
 
@@ -102,9 +114,9 @@ PYBIND11_MODULE(veil_backend, m) {
     m.doc() = "Veil-FHE C++ backend: minimal OpenFHE CKKS primitives.";
 
     py::class_<veil::Context>(m, "Context")
-        .def(py::init<int, int, int, int>(),
-             py::arg("mult_depth"), py::arg("scaling_mod_size") = 50,
-             py::arg("first_mod_size") = 60, py::arg("batch_size") = 0)
+        .def(py::init<int, int, int, int>(), py::arg("mult_depth"),
+             py::arg("scaling_mod_size") = 50, py::arg("first_mod_size") = 60,
+             py::arg("batch_size") = 0)
         .def("keygen", &veil::Context::keygen, py::arg("rotation_indices"))
         .def("enable_bootstrap", &veil::Context::enable_bootstrap, py::arg("level_budget"));
 

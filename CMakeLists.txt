@@ -26,6 +26,7 @@ if(APPLE AND CMAKE_OSX_SYSROOT)
 endif()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 
 
@@ -80,8 +81,11 @@ if(CMAKE_EXPORT_COMPILE_COMMANDS AND NOT SKBUILD)
     )
 endif()
 
-# scikit-build-core installs the module into the veil package directory.
-install(TARGETS veil_backend LIBRARY DESTINATION veil RUNTIME DESTINATION veil)
+set(CMAKE_INSTALL_RPATH "${CMAKE_BINARY_DIR}/lib")
+set_target_properties(veil_backend PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)
+
+# scikit-build-core installs the module into the root so it's importable as veil_backend.
+install(TARGETS veil_backend LIBRARY DESTINATION . RUNTIME DESTINATION .)
 
 # --------------------------------------------------------------------------
 # Optional C++ unit tests

@@ -73,7 +73,7 @@ default-groups = ["dev"]
 # ---------------------------------------------------------------------------
 [tool.scikit-build]
 minimum-version = "0.10"
-build-dir = "build/{wheel_tag}"
+build-dir = "cmake-build-release"
 wheel.packages = ["veil"]
 cmake.version = ">=3.24"
 cmake.build-type = "Release"
