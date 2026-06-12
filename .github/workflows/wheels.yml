@@ -22,7 +22,7 @@ jobs:
         if: runner.os == 'macOS'
         run: brew install libomp
       - name: Build wheels
-        uses: pypa/cibuildwheel@v3.4
+        uses: pypa/cibuildwheel@v4.0
         env:
           CIBW_BUILD: "cp312-*"
           CIBW_BUILD_FRONTEND: "build[uv]"
